@@ -42,6 +42,7 @@ public class Department implements Serializable
 	}
 
 	//Métodos sobrescrevidos
+	@Override
 	public String toString()
 	{
 		return "Department [id: " + this.getId() + "] [name: " + this.getName() + "]";
