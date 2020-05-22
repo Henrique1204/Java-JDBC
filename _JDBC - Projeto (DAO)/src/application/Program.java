@@ -19,9 +19,12 @@ public class Program
 		System.out.println("=== Teste 1: inserir() -- Department ===");
 		Department newDep = new Department(null, "TI");
 		departmentDao.inserir(newDep);
-		*/
 
 		System.out.println("\n=== Teste 2: atualizar() -- Department ===");
 		departmentDao.atualizar(new Department(7, "Desenvolvimento"));
+		*/
+
+		System.out.println("\n=== Teste 3: deletarPorId() -- Department ===");
+		departmentDao.deletarPorId(6);
 	}
 }

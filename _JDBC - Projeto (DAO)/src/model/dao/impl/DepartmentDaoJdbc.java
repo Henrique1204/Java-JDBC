@@ -87,9 +87,24 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 	}
 
 	@Override
-	public void deletarPorId(Integer id) {
-		// TODO Auto-generated method stub
-		
+	public void deletarPorId(Integer id)
+	{
+		PreparedStatement st = null;
+
+		try
+		{
+			st = conn.prepareStatement("DELETE FROM department WHERE Id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e.getMessage());
+		}
+		finally
+		{
+			DB.fecharStatement(st);
+		}
 	}
 
 	@Override
