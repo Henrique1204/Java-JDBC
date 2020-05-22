@@ -72,8 +72,8 @@ public class SellerDaoJdbc implements EntidadeDao<Seller>
 
 			if(rs.next())
 			{
-				Department dep = new Department( rs.getInt("DepartmentId"), rs.getString("DepName") );
-				Seller obj = new Seller( rs.getInt("Id"), rs.getString("Name"), rs.getString("Email"), rs.getDate("BirthDate"), rs.getDouble("BaseSalary"), dep );
+				Department dep = instanciarDepartment(rs);
+				Seller obj = instanciarSeller(rs, dep);
 
 				return obj;
 			}
@@ -95,5 +95,18 @@ public class SellerDaoJdbc implements EntidadeDao<Seller>
 	public List<Seller> buscarTodos()
 	{
 		return null;
+	}
+
+	//Métodos implementados
+	private Department instanciarDepartment(ResultSet rs) throws SQLException
+	{
+		Department department = new Department( rs.getInt("DepartmentId"), rs.getString("DepName") );
+		return department;
+	}
+
+	private Seller instanciarSeller(ResultSet rs, Department department) throws SQLException
+	{
+		Seller seller = new Seller( rs.getInt("Id"), rs.getString("Name"), rs.getString("Email"), rs.getDate("BirthDate"), rs.getDouble("BaseSalary"), department );
+		return seller;
 	}
 }

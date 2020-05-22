@@ -10,6 +10,7 @@ public class Program
 	{
 		EntidadeDao<Seller> sellerDao = DaoFactory.criarSellerDao();
 
+		System.out.println("=== Teste 1: buscarPorId() -- Seller ===");
 		Seller seller = sellerDao.buscarPorId(3);
 
 		System.out.println(seller);
