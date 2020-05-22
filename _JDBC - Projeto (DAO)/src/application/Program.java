@@ -22,9 +22,12 @@ public class Program
 
 		System.out.println("\n=== Teste 2: atualizar() -- Department ===");
 		departmentDao.atualizar(new Department(7, "Desenvolvimento"));
-		*/
 
 		System.out.println("\n=== Teste 3: deletarPorId() -- Department ===");
 		departmentDao.deletarPorId(6);
+		*/
+
+		System.out.println("\n=== Teste 4: buscarPorId() -- Department ===");
+		System.out.println(departmentDao.buscarPorId(2));
 	}
 }

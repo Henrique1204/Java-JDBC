@@ -108,9 +108,35 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 	}
 
 	@Override
-	public Department buscarPorId(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Department buscarPorId(Integer id)
+	{
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try
+		{
+			st = conn.prepareStatement("SELECT * FROM department WHERE Id = ?;");
+			st.setInt(1, id);
+			rs = st.executeQuery();
+
+			if (rs.next())
+			{
+				Department obj = instanciarDepartment(rs);
+
+				return obj;
+			}
+
+			return null;
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e.getMessage());
+		}
+		finally
+		{
+			DB.fecharStatement(st);
+			DB.fecharResultSet(rs);
+		}
 	}
 
 	@Override
@@ -123,5 +149,12 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 	public List<Seller> buscarPorDepartment(Department dep) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	//Métodos implementados
+	private Department instanciarDepartment(ResultSet rs) throws SQLException
+	{
+		Department department = new Department( rs.getInt("Id"), rs.getString("Name") );
+		return department;
 	}
 }
