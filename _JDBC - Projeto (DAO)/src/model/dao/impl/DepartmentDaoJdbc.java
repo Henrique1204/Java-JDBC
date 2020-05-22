@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -140,9 +142,35 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 	}
 
 	@Override
-	public List<Department> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Department> buscarTodos()
+	{
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try
+		{
+			st = conn.prepareStatement("SELECT * FROM department ORDER BY Name");
+
+			rs = st.executeQuery();
+
+			List<Department> lista = new ArrayList<>();
+
+			while (rs.next())
+			{
+				lista.add( new Department( rs.getInt("id"), rs.getString("Name") ) );
+			}
+
+			return lista;
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e.getMessage());
+		}
+		finally
+		{
+			DB.fecharStatement(st);
+			DB.fecharResultSet(rs);
+		}
 	}
 
 	@Override
