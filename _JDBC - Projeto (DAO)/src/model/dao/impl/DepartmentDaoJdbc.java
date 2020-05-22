@@ -66,8 +66,24 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 	@Override
 	public void atualizar(Department obj)
 	{
-		
-		
+		PreparedStatement st = null;
+
+		try
+		{
+			st = conn.prepareStatement("UPDATE department SET Name = ? WHERE Id = ?");
+			st.setString(1, obj.getName());
+			st.setInt(2, obj.getId());
+
+			st.execute();
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e.getMessage());
+		}
+		finally
+		{
+			DB.fecharStatement(st);
+		}
 	}
 
 	@Override

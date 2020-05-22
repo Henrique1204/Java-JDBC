@@ -15,8 +15,13 @@ public class Program
 	{
 		EntidadeDao<Department> departmentDao = DaoFactory.criarDepartmentDao();
 
+		/*
 		System.out.println("=== Teste 1: inserir() -- Department ===");
 		Department newDep = new Department(null, "TI");
 		departmentDao.inserir(newDep);
+		*/
+
+		System.out.println("\n=== Teste 2: atualizar() -- Department ===");
+		departmentDao.atualizar(new Department(7, "Desenvolvimento"));
 	}
 }
