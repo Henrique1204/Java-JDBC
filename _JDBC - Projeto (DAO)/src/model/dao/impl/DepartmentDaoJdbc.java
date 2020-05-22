@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -175,7 +174,6 @@ public class DepartmentDaoJdbc implements EntidadeDao<Department>
 
 	@Override
 	public List<Seller> buscarPorDepartment(Department dep) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
