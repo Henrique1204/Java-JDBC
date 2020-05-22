@@ -22,18 +22,6 @@ public class SellerDaoJdbc implements EntidadeDao<Seller>
 	//Construtor
 	public SellerDaoJdbc(Connection conn)
 	{
-		this.setConn(conn);
-	}
-
-	//Getter
-	public Connection getConn()
-	{
-		return this.conn;
-	}
-
-	//Setter
-	public void setConn(Connection conn)
-	{
 		this.conn = conn;
 	}
 
@@ -97,7 +85,50 @@ public class SellerDaoJdbc implements EntidadeDao<Seller>
 	@Override
 	public List<Seller> buscarTodos()
 	{
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try
+		{
+			st = conn.prepareStatement(
+						"SELECT seller.*, department.Name as DepName "
+						+ "FROM seller INNER JOIN department "
+						+ "ON seller.DepartmentId = department.Id "
+						+ "ORDER BY Name");
+
+			rs = st.executeQuery();
+
+			List<Seller> lista = new ArrayList<>();
+			//<id do item, Tipo do objeto>
+			Map<Integer, Department> map = new HashMap<>();
+
+			while (rs.next())
+			{
+				//Busca o item na chave -- buscar o valor da coluna DepartmentId
+				Department dep = map.get(rs.getInt("DepartmentId"));
+
+				if (dep == null)
+				{
+					dep = instanciarDepartment(rs);
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+
+
+				Seller obj = instanciarSeller(rs, dep);
+				lista.add(obj);
+			}
+
+			return lista;
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e.getMessage());
+		}
+		finally
+		{
+			DB.fecharStatement(st);
+			DB.fecharResultSet(rs);
+		}
 	}
 
 	@Override

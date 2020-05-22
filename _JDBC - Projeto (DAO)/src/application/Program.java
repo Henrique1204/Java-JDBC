@@ -21,5 +21,9 @@ public class Program
 		Department department = new Department(2, null);
 		List<Seller> lista = sellerDao.buscarPorDepartment(department);
 		lista.forEach(System.out::println);
+
+		System.out.println("\n=== Teste 3; buscarTodos() -- Seller ===");
+		lista = sellerDao.buscarTodos();
+		lista.forEach(System.out::println);
 	}
 }
